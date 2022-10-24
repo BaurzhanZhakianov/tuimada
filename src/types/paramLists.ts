@@ -4,6 +4,7 @@ type RootParamList = {
 
 type HomeParamList = {
   HomeScreen: undefined;
+  GasStationMapScreen: undefined;
 };
 
 type NewsParamList = {

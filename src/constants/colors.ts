@@ -10,4 +10,7 @@ export default {
   darkGray: '#ADA7A8',
   silverChalice: '#B2ABAD',
   chineseSilver: '#C7C7C7',
+  brightGray: '#EAEAEA',
+  philippineSilver: '#B8B8B8',
+  translucentBlack: '#00000080',
 };

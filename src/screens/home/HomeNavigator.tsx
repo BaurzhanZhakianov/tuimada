@@ -2,6 +2,11 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeParamList} from '../../types/paramLists';
 import HomeScreen from './HomeScreen';
+import SettingsIcon from '../../components/icons/SettingsIcon';
+import colors from '../../constants/colors';
+import GasStationMapScreen from './GasStationMapScreen';
+import ArrowLeftIcon from '../../components/icons/ArrowLeftIcon';
+import {TouchableHighlight} from 'react-native';
 
 const Stack = createNativeStackNavigator<HomeParamList>();
 
@@ -17,9 +22,47 @@ const HomeNavigator = () => {
       <Stack.Screen
         name="HomeScreen"
         options={{
-          headerShown: false,
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitle: 'Главная',
+          headerTitleStyle: {
+            fontFamily: 'Montserrat-Bold',
+            fontSize: 30,
+          },
+          headerRight: () => <SettingsIcon color={colors.raisinBlack} />,
+          contentStyle: {
+            backgroundColor: colors.white,
+          },
         }}
         component={HomeScreen}
+      />
+      <Stack.Screen
+        name="GasStationMapScreen"
+        options={({navigation}) => ({
+          headerShown: true,
+          headerShadowVisible: false,
+          headerTitle: 'Карта заправок',
+          headerTitleStyle: {
+            fontFamily: 'Montserrat-Bold',
+            fontSize: 30,
+          },
+          headerTitleAlign: 'center',
+          animation: 'slide_from_right',
+          headerLeft: ({canGoBack}) => (
+            <TouchableHighlight
+              onPress={() => {
+                if (canGoBack) {
+                  navigation.goBack();
+                }
+              }}>
+              <ArrowLeftIcon />
+            </TouchableHighlight>
+          ),
+          contentStyle: {
+            backgroundColor: colors.white,
+          },
+        })}
+        component={GasStationMapScreen}
       />
     </Stack.Navigator>
   );
