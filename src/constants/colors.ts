@@ -12,5 +12,6 @@ export default {
   chineseSilver: '#C7C7C7',
   brightGray: '#EAEAEA',
   philippineSilver: '#B8B8B8',
+  brightGray2: '#ECECEC',
   translucentBlack: '#00000080',
 };

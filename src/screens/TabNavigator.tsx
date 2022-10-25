@@ -17,6 +17,7 @@ import HomeFilledIcon from '../components/icons/HomeFilledIcon';
 import ProfileFilledIcon from '../components/icons/ProfileFilledIcon';
 import StoreFilledIcon from '../components/icons/StoreFilledIcon';
 import {Text} from 'react-native';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 export const Tab = createBottomTabNavigator();
 
@@ -24,10 +25,20 @@ const TabBarLabel = ({focused, text}: any) => (
   <Text style={focused ? {color: colors.raisinBlack} : undefined}>{text}</Text>
 );
 
+const getIsTabBarShown = (route: any) => {
+  const routeName = getFocusedRouteNameFromRoute(route);
+  switch (routeName) {
+    case 'RefuelScreen':
+      return 'none';
+    default:
+      return 'flex';
+  }
+};
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator
-      screenOptions={{
+      screenOptions={({route}) => ({
         tabBarShowLabel: true,
         tabBarLabelStyle: {
           fontSize: 10,
@@ -39,6 +50,7 @@ const TabNavigator = () => {
           color: colors.darkGray,
         },
         tabBarStyle: {
+          display: getIsTabBarShown(route),
           height: 64,
           borderTopColor: colors.brightGray,
           borderTopWidth: 1,
@@ -47,7 +59,7 @@ const TabNavigator = () => {
         headerShown: false,
         tabBarActiveTintColor: colors.castletonGreen,
         tabBarInactiveTintColor: colors.raisinBlack,
-      }}>
+      })}>
       <Tab.Screen
         name="HomeNavigator"
         component={HomeNavigator}

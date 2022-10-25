@@ -1,6 +1,6 @@
 import {format} from 'date-fns';
 import {INews} from '../types/news';
-import {IService} from '../types/types';
+import {IService, IStation} from '../types/types';
 const news1 = require('../assets/images/news1.png');
 const news2 = require('../assets/images/news2.png');
 const news3 = require('../assets/images/news3.png');
@@ -40,4 +40,35 @@ const services: IService[] = [
   {title: 'Оставить отзыв', type: 'feedback', id: '3', badge: 0},
 ];
 
-export {news, stats, services};
+const stations: IStation[] = [
+  {
+    id: '1',
+    number: 2442,
+    address: 'Восстания, дом 56',
+    latitude: 10,
+    longitude: 10,
+    marks: [
+      {name: 'АИ-92', octaneNumber: 92, price: 45.88},
+      {name: 'АИ-95', octaneNumber: 95, price: 49.4},
+      {name: 'АИ-98', octaneNumber: 98, price: 53.5},
+      {name: 'АИ-102', octaneNumber: 102, price: 60.53},
+      {name: 'АИ-100', octaneNumber: 100, price: 57.2},
+      {name: 'АИ-105', octaneNumber: 105, price: 67.22},
+    ],
+  },
+  {
+    id: '2',
+    number: 4421,
+    address: 'Восстания, дом 72',
+    latitude: 11,
+    longitude: 11,
+    marks: [
+      {name: 'АИ-98', octaneNumber: 98, price: 56.3},
+      {name: 'АИ-100', octaneNumber: 100, price: 57.2},
+      {name: 'АИ-102', octaneNumber: 102, price: 61.93},
+      {name: 'АИ-105', octaneNumber: 105, price: 67.22},
+    ],
+  },
+];
+
+export {news, stats, services, stations};

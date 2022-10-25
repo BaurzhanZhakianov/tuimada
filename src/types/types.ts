@@ -11,4 +11,19 @@ interface IService {
   type: 'maps' | 'history' | 'feedback';
 }
 
-export type {IStats, IService};
+interface OctaneMark {
+  octaneNumber: number;
+  price: number;
+  name: string;
+}
+
+interface IStation {
+  id: string;
+  number: number;
+  latitude: number;
+  longitude: number;
+  address: string;
+  marks: OctaneMark[];
+}
+
+export type {IStats, IService, IStation};

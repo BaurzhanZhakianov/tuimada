@@ -6,7 +6,8 @@ import SettingsIcon from '../../components/icons/SettingsIcon';
 import colors from '../../constants/colors';
 import GasStationMapScreen from './GasStationMapScreen';
 import ArrowLeftIcon from '../../components/icons/ArrowLeftIcon';
-import {TouchableHighlight} from 'react-native';
+import {TouchableOpacity} from 'react-native';
+import RefuelScreen from './RefuelScreen';
 
 const Stack = createNativeStackNavigator<HomeParamList>();
 
@@ -44,25 +45,30 @@ const HomeNavigator = () => {
           headerTitle: 'Карта заправок',
           headerTitleStyle: {
             fontFamily: 'Montserrat-Bold',
-            fontSize: 30,
+            fontSize: 18,
           },
           headerTitleAlign: 'center',
           animation: 'slide_from_right',
           headerLeft: ({canGoBack}) => (
-            <TouchableHighlight
+            <TouchableOpacity
               onPress={() => {
                 if (canGoBack) {
                   navigation.goBack();
                 }
               }}>
               <ArrowLeftIcon />
-            </TouchableHighlight>
+            </TouchableOpacity>
           ),
           contentStyle: {
             backgroundColor: colors.white,
           },
         })}
         component={GasStationMapScreen}
+      />
+      <Stack.Screen
+        name={'RefuelScreen'}
+        component={RefuelScreen}
+        options={{headerShown: false, animation: 'fade'}}
       />
     </Stack.Navigator>
   );

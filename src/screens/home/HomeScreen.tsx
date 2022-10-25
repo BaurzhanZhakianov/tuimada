@@ -11,7 +11,7 @@ import {news, services, stats} from '../../constants/mock';
 import NewsCard from './components/NewsCard';
 import Stats from '../../components/Stats';
 import ServiceCard from '../../components/ServiceCard';
-import {MonserratBold} from '../../components/fonts/Monserrat';
+import {MonserratBold, MonserratMedium} from '../../components/fonts/Monserrat';
 import colors from '../../constants/colors';
 import Shadow from '../../components/Shadow';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -21,7 +21,7 @@ const adImage = require('../../assets/images/hand.png');
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    marginVertical: 10,
   },
   container2: {
     paddingHorizontal: 20,
@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
     borderRadius: 24,
     flexDirection: 'row',
     alignItems: 'center',
+    marginBottom: 20,
   },
   adText: {
     fontSize: 14,
@@ -85,12 +86,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 10,
   },
+  refuel: {
+    backgroundColor: colors.naplesYellow,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+    borderRadius: 24,
+  },
+  refuelText: {
+    fontSize: 14,
+    lineHeight: 16,
+  },
 });
 
 type Props = NativeStackScreenProps<HomeParamList, 'HomeScreen'>;
 
 const HomeScreen = (props: Props) => {
   const {navigation} = props;
+
+  const onPressRefuel = () => {
+    navigation.navigate('RefuelScreen');
+  };
+
   return (
     <ScrollView style={styles.container}>
       <FlatList
@@ -143,6 +160,11 @@ const HomeScreen = (props: Props) => {
               <MonserratBold>65 ✪</MonserratBold>
             </View>
           </Shadow>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onPressRefuel} style={styles.refuel}>
+          <MonserratMedium style={styles.refuelText}>
+            Заправиться
+          </MonserratMedium>
         </TouchableOpacity>
       </View>
     </ScrollView>
