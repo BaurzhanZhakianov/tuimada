@@ -1,4 +1,5 @@
 import React from 'react';
+import 'react-native-reanimated';
 import {NavigationContainer} from '@react-navigation/native';
 import RootNavigator from './src/screens/RootNavigator';
 import {LogBox} from 'react-native';

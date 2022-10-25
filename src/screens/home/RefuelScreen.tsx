@@ -1,10 +1,18 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {MonserratBold, MonserratMedium} from '../../components/fonts/Monserrat';
-import {Dimensions, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {HomeParamList} from '../../types/paramLists';
 import colors from '../../constants/colors';
 import ScanIcon from '../../components/icons/ScanIcon';
+import {Camera, useCameraDevices} from 'react-native-vision-camera';
+import {BarcodeFormat, useScanBarcodes} from 'vision-camera-code-scanner';
 
 type Props = NativeStackScreenProps<HomeParamList, 'RefuelScreen'>;
 
@@ -16,7 +24,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     padding: 20,
-    backgroundColor: colors.black,
   },
   icon: {
     // marginBottom: 20,
@@ -61,13 +68,56 @@ const styles = StyleSheet.create({
 
 const RefuelScreen = (props: Props) => {
   const {navigation} = props;
+  const [hasPermission, setHasPermission] = useState(false);
+  const devices = useCameraDevices();
+  const device = devices.back;
+  const [code, setCode] = useState('');
+
+  const [frameProcessor, barcodes] = useScanBarcodes([BarcodeFormat.QR_CODE], {
+    checkInverted: true,
+  });
+
+  useEffect(() => {
+    (async () => {
+      const status = await Camera.requestCameraPermission();
+      setHasPermission(status === 'authorized');
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (barcodes && barcodes.length) {
+      const item = barcodes[barcodes.length - 1];
+      if (item.displayValue) {
+        setCode(item.displayValue);
+      }
+    }
+  }, [barcodes]);
+
+  useEffect(() => {
+    if (code) {
+      Alert.alert('QR считан', code);
+    }
+  }, [code]);
+
+  if (!device || !hasPermission) {
+    return null;
+  }
+
   const onPressCancel = () => {
     if (navigation.canGoBack()) {
       navigation.goBack();
     }
   };
+
   return (
     <View style={styles.container}>
+      <Camera
+        style={StyleSheet.absoluteFill}
+        device={device}
+        isActive={!code}
+        frameProcessor={frameProcessor}
+        frameProcessorFps={5}
+      />
       <View style={styles.icon}>
         <ScanIcon />
       </View>
