@@ -6,6 +6,7 @@ type HomeParamList = {
   HomeScreen: undefined;
   GasStationMapScreen: undefined;
   RefuelScreen: undefined;
+  FeedbackScreen: undefined;
 };
 
 type NewsParamList = {

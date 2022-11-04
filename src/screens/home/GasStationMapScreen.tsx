@@ -1,14 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import RoundedInput from '../../components/RoundedInput';
 import RoundedButton from '../../components/RoundedButton';
 import LocationIcon from '../../components/icons/LocationIcon';
 import SearchIcon from '../../components/icons/SearchIcon';
-import MapView from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {IStation} from '../../types/types';
 import GasStationCard from './components/GasStationCard';
 import {stations} from '../../constants/mock';
+
+const marker = require('../../assets/icons/marker.png');
 
 const styles = StyleSheet.create({
   container: {
@@ -65,7 +67,10 @@ const GasStationMapScreen = () => {
     setAddress(text);
   };
   const [station, setStation] = useState<IStation | null>(null);
-
+  const [pin, setPin] = useState({
+    latitude: 55.836759,
+    longitude: 49.0785648,
+  });
   useEffect(() => {
     setTimeout(() => {
       setStation(stations[0]);
@@ -74,6 +79,15 @@ const GasStationMapScreen = () => {
 
   const onCloseStation = () => {
     setStation(null);
+  };
+
+  const onPressPin = (pin2: IStation) => {
+    const newPin = {
+      longitude: pin2.longitude,
+      latitude: pin2.latitude,
+    };
+    setPin(newPin);
+    setStation(pin2);
   };
 
   return (
@@ -104,14 +118,34 @@ const GasStationMapScreen = () => {
         />
       </LinearGradient>
       <MapView
+        provider={PROVIDER_GOOGLE}
         style={styles.map}
         initialRegion={{
-          latitude: 55.836759,
-          longitude: 49.0785648,
+          ...pin,
           latitudeDelta: 0.0922,
           longitudeDelta: 0.0421,
-        }}
-      />
+        }}>
+        {stations.map(pin2 => {
+          const isEqualCoordinates =
+            pin2.longitude === station?.longitude &&
+            pin2.latitude === station.latitude;
+
+          return (
+            <Marker
+              key={pin2.number}
+              onPress={() => onPressPin(pin2)}
+              coordinate={{longitude: pin2.longitude, latitude: pin2.latitude}}>
+              <Image
+                source={marker}
+                style={{
+                  width: isEqualCoordinates ? 56 : 30,
+                  height: isEqualCoordinates ? 56 : 30,
+                }}
+              />
+            </Marker>
+          );
+        })}
+      </MapView>
       {station ? (
         <GasStationCard
           station={station}

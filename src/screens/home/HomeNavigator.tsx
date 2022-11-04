@@ -8,6 +8,7 @@ import GasStationMapScreen from './GasStationMapScreen';
 import ArrowLeftIcon from '../../components/icons/ArrowLeftIcon';
 import {TouchableOpacity} from 'react-native';
 import RefuelScreen from './RefuelScreen';
+import FeedbackScreen from './FeedbackScreen';
 
 const Stack = createNativeStackNavigator<HomeParamList>();
 
@@ -69,6 +70,11 @@ const HomeNavigator = () => {
         name={'RefuelScreen'}
         component={RefuelScreen}
         options={{headerShown: false, animation: 'fade'}}
+      />
+      <Stack.Screen
+        name={'FeedbackScreen'}
+        component={FeedbackScreen}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );

@@ -132,6 +132,9 @@ const HomeScreen = (props: Props) => {
                 if (i.type === 'maps') {
                   navigation.navigate('GasStationMapScreen');
                 }
+                if (i.type === 'feedback') {
+                  navigation.navigate('FeedbackScreen');
+                }
               }}>
               <ServiceCard
                 service={i}

@@ -45,8 +45,8 @@ const stations: IStation[] = [
     id: '1',
     number: 2442,
     address: 'Восстания, дом 56',
-    latitude: 10,
-    longitude: 10,
+    latitude: 55.836759,
+    longitude: 49.0785648,
     marks: [
       {name: 'АИ-92', octaneNumber: 92, price: 45.88},
       {name: 'АИ-95', octaneNumber: 95, price: 49.4},
@@ -60,8 +60,8 @@ const stations: IStation[] = [
     id: '2',
     number: 4421,
     address: 'Восстания, дом 72',
-    latitude: 11,
-    longitude: 11,
+    latitude: 55.845762,
+    longitude: 49.0795653,
     marks: [
       {name: 'АИ-98', octaneNumber: 98, price: 56.3},
       {name: 'АИ-100', octaneNumber: 100, price: 57.2},
@@ -71,4 +71,17 @@ const stations: IStation[] = [
   },
 ];
 
-export {news, stats, services, stations};
+const tracks = [
+  {
+    id: '1',
+    url: require('../assets/audio/test.mp3'),
+    title: 'Вечерний Ургант',
+  },
+  {
+    id: '2',
+    url: require('../assets/audio/test2.mp3'),
+    title: 'Метроном',
+  },
+];
+
+export {news, stats, services, stations, tracks};
